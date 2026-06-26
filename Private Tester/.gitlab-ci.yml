@@ -1,0 +1,19 @@
+stages:
+  - test
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "pipeline"'
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "api"'
+    - when: never
+
+run_hidden_python_tests:
+  stage: test
+  image: "artifactory.school/$CI_PROJECT_ROOT_NAMESPACE/python-autotester:3.12"
+  variables:
+    PYTHONDONTWRITEBYTECODE: "1"
+    PYTHON_AUTO_TESTER_REF: "main"
+  script:
+    - python runner/private_tester.py

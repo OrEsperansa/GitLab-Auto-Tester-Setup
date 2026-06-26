@@ -1,0 +1,24 @@
+stages:
+  - autotest
+
+variables:
+  PRIVATE_TESTER_REF: "main"
+
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH'
+    - when: never
+
+trigger_private_tester:
+  stage: autotest
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH'
+  variables:
+    COURSE_PATH: "$CI_PROJECT_ROOT_NAMESPACE"
+    STUDENT_PROJECT_PATH: "$CI_PROJECT_PATH"
+    STUDENT_COMMIT_SHA: "$CI_COMMIT_SHA"
+  trigger:
+    project: "$CI_PROJECT_ROOT_NAMESPACE/auto-tests/private-tests"
+    branch: "$PRIVATE_TESTER_REF"
+    strategy: depend
