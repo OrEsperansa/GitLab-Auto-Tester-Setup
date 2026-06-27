@@ -11,7 +11,7 @@ workflow:
 
 run_hidden_python_tests:
   stage: test
-  image: "artifactory.school/$CI_PROJECT_ROOT_NAMESPACE/python-autotester:3.12"
+  image: "oresperansa/python-autotester:3.12"
   variables:
     PYTHONDONTWRITEBYTECODE: "1"
     PYTHON_AUTO_TESTER_REF: "main"

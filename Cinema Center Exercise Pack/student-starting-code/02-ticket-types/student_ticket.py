@@ -1,0 +1,2 @@
+class StudentTicket:
+    pass

@@ -1,0 +1,2 @@
+class SeniorTicket:
+    pass
